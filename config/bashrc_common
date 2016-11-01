@@ -1,1 +1,7 @@
+# Better .bashrc_history
 shopt -s histappend
+HISTSIZE=10000
+HISTFILESIZE=20000
+
+# Forward ssh keys
+ssh -A
