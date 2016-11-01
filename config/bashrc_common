@@ -4,4 +4,4 @@ HISTSIZE=10000
 HISTFILESIZE=20000
 
 # Forward ssh keys
-ssh -A
+alias ssh="ssh -A"
