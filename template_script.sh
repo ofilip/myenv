@@ -87,6 +87,8 @@ while getopts ":vhe:f" opt; do
     esac
 done
 
+shift $((OPTIND-1))
+
 
 ## MAIN PART  ##
 
