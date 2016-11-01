@@ -68,8 +68,6 @@ cleanup() {
 VERBOSE=0
 LIST_MODULES=0
 
-[ $# -gt 0 ] || { usage ; exit 0 ; }
-
 while getopts ":vhe:fl" opt; do
     case "$opt" in
     v) VERBOSE=1 ;;
