@@ -1,3 +1,5 @@
+call pathogen#infect()
+
 set nocompatible
 
 set number
@@ -34,7 +36,7 @@ autocmd FileType python
     \ setlocal shiftwidth=4 |
     \ setlocal smarttab |
     \ setlocal expandtab
-autocmd BufNewFile *.py so /home/ofilip/DATA/git/vyzkum-ondra/config/vim_files/python_header.txt
+autocmd BufNewFile *.py so ~/.vim/headers/python_header.txt
 
 autocmd FileType make
     \ setlocal softtabstop=4 |

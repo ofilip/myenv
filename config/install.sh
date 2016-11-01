@@ -84,10 +84,20 @@ done
 shift $((OPTIND-1))
 
 install_vimrc() {
+    subcmd mkdir -p ~/.vim || error "Failed to create ~/.vim"
+    if [ -f ~/.vim/headers ]; then
+        error "~/.vim/headers already exists, skipping"
+    else
+        if subcmd ln -s "$(pwd)/vim_files/headers" "$HOME/.vim/headers"; then
+            info "Created ~/.vim/headers"
+        else
+            error "Failed to create ~/.vim/headers"
+        fi
+    fi
     if [ -f ~/.vimrc ]; then
         error "~/.vimrc already exists, skipping"
     else
-        if ln -s "$(pwd)/.vimrc" "$HOME/.vimrc"; then
+        if subcmd ln -s "$(pwd)/.vimrc" "$HOME/.vimrc"; then
             info "Created ~/.vimrc"
         else
             error "Failed to create ~/.vimrc"
@@ -98,7 +108,7 @@ install_vimrc() {
 install_bashrc() {
     filename="$(pwd)/bashrc_common"
     include_command="source $filename"
-    if grep -e "$include_command" ~/.bashrc; then
+    if grep -q -e "$include_command" ~/.bashrc; then
         info "bashrc_common already referenced"
     else
         if echo "$include_command" >> ~/.bashrc; then
