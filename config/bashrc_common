@@ -5,3 +5,12 @@ HISTFILESIZE=20000
 
 # Forward ssh keys
 alias ssh="ssh -A"
+
+# Setup pyenv
+if [ -d ~/.pyenv ]; then
+    export PATH="/home/ofilip/.pyenv/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+    export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+fi
+
