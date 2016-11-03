@@ -27,15 +27,15 @@ usage() {
 }
 
 error() {
-    echo ERROR: $@
+    echo -e ERROR: $@
 }
 
 warn() {
-    echo WARNING $@
+    echo -e WARNING $@
 }
 
 info() {
-    echo INFO $@
+    echo -e INFO $@
 }
 
 fail() {
@@ -65,19 +65,56 @@ cleanup() {
 }
 
 
+get_profile() {
+    local result_var=$1
+    if [ -z "$PROFILE" ]; then
+        ok=
+        while [ -z "$ok" ]; do
+            echo -n "Choose profile ($VALID_PROFILES): "
+            read profile
+            for valid_profile in $VALID_PROFILES; do
+                if [ "$profile" == "$valid_profile" ]; then
+                    ok=1
+                    break
+                fi
+            done
+        done
+        PROFILE=$profile
+    fi
+    eval $result_var=$PROFILE
+}
+
+
 VERBOSE=0
 LIST_MODULES=0
+PROFILE=  # do not access directly, use get profile
 
-while getopts ":vhe:fl" opt; do
+VALID_PROFILES="seznam private"
+
+while getopts ":vhe:flp:" opt; do
     case "$opt" in
-    v) VERBOSE=1 ;;
-    h) usage ; exit 0 ;;
-    l) LIST_MODULES=1 ;;
-        *) p
-        echo "ERROR: Invalid option -$OPTARG given"
-        usage 
-        exit 1
-        ;;
+        v) VERBOSE=1 ;;
+        h) usage ; exit 0 ;;
+        p) 
+            PROFILE="$OPTARG"
+            profile_ok=0
+            msg="Invalid profile given. Available profiles are:"
+            for profile in $VALID_PROFILES; do
+                msg="\n${msg}- $profile"
+                if [ "$PROFILE" == "$profile" ]; then
+                    profile_ok=1
+                fi
+            done
+            if [ $profile_ok == 0 ]; then
+                fail "$msg"
+            fi
+            ;;
+        l) LIST_MODULES=1 ;;
+        *)
+            echo "ERROR: Invalid option -$OPTARG given"
+            usage 
+            exit 1
+            ;;
     esac
 done
 
@@ -88,6 +125,7 @@ vim_plugins=(
     https://github.com/tpope/vim-sensible
     https://github.com/nvie/vim-flake8
 )
+
 
 install_vimrc() {
     subcmd mkdir -p ~/.vim || error "Failed to create ~/.vim"
@@ -142,7 +180,13 @@ install_bashrc() {
     fi
 }
 
-modules_all="vimrc bashrc"
+install_git() {
+    get_profile profile
+    source git_config/common.sh
+    source git_config/$profile.sh
+}
+
+modules_all="vimrc bashrc git"
 
 list_modules() {
     echo "Available modules are:"
