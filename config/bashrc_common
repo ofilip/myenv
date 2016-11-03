@@ -4,7 +4,7 @@ HISTSIZE=10000
 HISTFILESIZE=20000
 
 # Forward ssh keys
-alias ssh="ssh -A"
+alias ssh="ssh -AY"
 
 # Setup pyenv
 if [ -d ~/.pyenv ]; then

@@ -73,7 +73,7 @@ while getopts ":vhe:fl" opt; do
     v) VERBOSE=1 ;;
     h) usage ; exit 0 ;;
     l) LIST_MODULES=1 ;;
-    *)
+        *) p
         echo "ERROR: Invalid option -$OPTARG given"
         usage 
         exit 1
@@ -83,10 +83,17 @@ done
 
 shift $((OPTIND-1))
 
+pathogen_url=https://github.com/tpope/vim-pathogen
+vim_plugins=(
+    https://github.com/tpope/vim-sensible
+    https://github.com/nvie/vim-flake8
+)
+
 install_vimrc() {
     subcmd mkdir -p ~/.vim || error "Failed to create ~/.vim"
-    if [ -f ~/.vim/headers ]; then
-        error "~/.vim/headers already exists, skipping"
+    if [ -e ~/.vim/headers ]; then
+        # TODO check if link leads where it is supposed to lead
+        warn "~/.vim/headers already exists, skipping"
     else
         if subcmd ln -s "$(pwd)/vim_files/headers" "$HOME/.vim/headers"; then
             info "Created ~/.vim/headers"
@@ -94,8 +101,10 @@ install_vimrc() {
             error "Failed to create ~/.vim/headers"
         fi
     fi
-    if [ -f ~/.vimrc ]; then
-        error "~/.vimrc already exists, skipping"
+
+    if [ -e ~/.vimrc ]; then
+        # TODO
+        warn "~/.vimrc already exists, skipping"
     else
         if subcmd ln -s "$(pwd)/.vimrc" "$HOME/.vimrc"; then
             info "Created ~/.vimrc"
@@ -103,6 +112,20 @@ install_vimrc() {
             error "Failed to create ~/.vimrc"
         fi
     fi
+
+    [ -d vim_files/vim-pathogen ] || subcmd git clone $pathogen_url vim_files/vim-pathogen \
+        || { error "Can't get pathogen"; break; }
+    subcmd mkdir -p ~/.vim/autoload || { error "Cant' create ~/.vim/autoload"; break; }
+    subcmd mkdir -p ~/.vim/bundle || { error "Cant' create ~/.vim/bundle"; break; }
+    pathogen_dest="$(pwd)/vim_files/vim-pathogen/autoload/pathogen.vim"
+    pathogen_link="$HOME/.vim/autoload/pathogen.vim"
+    [ -e "$pathogen_link" ] || subcmd ln -s "$pathogen_dest" "$pathogen_link" \
+        || { error "Can't link pathogen"; break; }
+    for plugin_url in ${vim_plugins[@]}; do
+        basedir=$(basename plugin_url)
+        fulldir="$(pwd)/vim_files/bundle/$basedir"
+        [ -e "$fulldir" ] || subcmd git clone $plugin_url "$fulldir"
+    done
 }
 
 install_bashrc() {
