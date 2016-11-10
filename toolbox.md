@@ -14,6 +14,10 @@
 **Already using:** nvidia-smi (together with export CUDA\_VISIBLE\_DEVICES=)
 **Queue to check:** nvim
 
+**Tips and tricks**
+
+- `for i in {01..10}; do echo $i; done`
+
 ## Python
 
 **Getting used to:**
