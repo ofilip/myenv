@@ -17,6 +17,15 @@
 **Tips and tricks**
 
 - `for i in {01..10}; do echo $i; done`
+- `xargs -P n` - parallel xargs
+-  iterate over dates in bash
+```bash
+d=2015-01-01
+while [ "$d" != 2015-02-20 ]; do 
+    echo $d
+    d=$(date -I -d "$d + 1 day")
+done
+```
 
 ## Python
 
