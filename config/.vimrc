@@ -31,6 +31,9 @@ set wrap
 set listchars=tab:!·,trail:·
 set list
 
+" Trim unwanted whitespaces on save
+autocmd BufWritePre * %s/\s\+$//e
+
 autocmd FileType python
     \ setlocal softtabstop=4 |
     \ setlocal tabstop=4 |
