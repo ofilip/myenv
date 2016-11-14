@@ -26,7 +26,7 @@ set colorcolumn=80
 
 set autoindent
 set smartindent
-set wrap
+set nowrap
 
 set listchars=tab:!·,trail:·
 set list
