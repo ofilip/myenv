@@ -22,6 +22,7 @@ set expandtab
 set smarttab
 set shiftwidth=4
 set tabstop=4
+highlight colorcolumn ctermbg=235 guibg=#2c2d27
 set colorcolumn=80
 
 set autoindent
@@ -40,7 +41,7 @@ autocmd FileType python
     \ setlocal shiftwidth=4 |
     \ setlocal smarttab |
     \ setlocal expandtab |
-    \ setlocal colorcolumn=80,120
+    \ setlocal colorcolumn=72,80,100
 autocmd BufNewFile *.py so ~/.vim/headers/python_header.txt
 
 autocmd FileType make
