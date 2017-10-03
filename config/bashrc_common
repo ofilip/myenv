@@ -19,3 +19,5 @@ export EDITOR=vim
 
 function venv { source ~/venv/$1/bin/activate; }
 export -f venv
+
+umask 002
