@@ -21,7 +21,7 @@
 -  iterate over dates in bash
 ```bash
 d=2015-01-01
-while [ "$d" != 2015-02-20 ]; do 
+while [ "$d" != 2015-02-20 ]; do
     echo $d
     d=$(date -I -d "$d + 1 day")
 done
@@ -31,6 +31,7 @@ done
 
 **Getting used to:**
 - tqdm (progress bar)
+- tabulate
 **Already using:** argparse
 **Queue to check:**
 - bokeh (data visualization)
@@ -39,6 +40,6 @@ done
 ## Other stuff
 
 **Getting used to:**
-**Already using:** 
+**Already using:**
 - ParaView (big data visualization tool)
 **Queue to ckeck:** d3.js
