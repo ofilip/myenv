@@ -12,6 +12,9 @@ export EDITOR=vim
 function venv { source ~/venv/$1/bin/activate; }
 export -f venv
 
+function gpu { export CUDA_VISIBLE_DEVICES=$1; }
+export -f gpu
+
 umask 002
 
 # Ctrl arrow skip words
@@ -144,7 +147,7 @@ set_prompts() {
     PS1+="\[$reset$white\]:"
     PS1+="\[$green\]\w" # working directory
     PS1+="\$(prompt_git \"$white on $cyan\")" # git repository details
-    PS1+="$yellow\$([ -z \"\$VIRTUAL_ENV\" ] || echo \" (venv \$(basename \$VIRTUAL_ENV)\"))"
+    PS1+="$yellow\$([ -z \"\$VIRTUAL_ENV\" ] || echo \" (venv \$(basename \$VIRTUAL_ENV)\")"
     PS1+="$cyan\$([ -z \"\$CUDA_VISIBLE_DEVICES\" ] || echo \" (gpu \$CUDA_VISIBLE_DEVICES)\")"
 
     PS1+="\n"
