@@ -24,8 +24,8 @@ bind '"\eOC":forward-word'
 bind '"\eOD":backward-word'
 
 # Trash bin
-alias rmr='/bin/rm'
-alias rm='trash-put'
+## alias rmr='/bin/rm'
+## alias rm='trash-put'
 
 # Nice prompt
 # Example:
