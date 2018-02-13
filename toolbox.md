@@ -10,6 +10,7 @@
 - perl (oneliners)
 - sed (more than just s/x/y/g)
 - du, df
+- pv (pipe progress bar)
 
 **Already using:** nvidia-smi (together with export CUDA\_VISIBLE\_DEVICES=)
 **Queue to check:** nvim
