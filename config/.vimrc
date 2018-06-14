@@ -39,7 +39,6 @@ autocmd FileType python
     \ setlocal smarttab |
     \ setlocal expandtab |
     \ setlocal colorcolumn=72,80,100
-autocmd BufNewFile *.py so ~/.vim/headers/python_header.txt
 
 autocmd FileType make
     \ setlocal softtabstop=4 |
