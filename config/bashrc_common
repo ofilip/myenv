@@ -9,10 +9,22 @@ alias ssh="ssh -AY"
 export TERM=xterm-256color
 export EDITOR=vim
 
-function venv { source ~/venv/$1/bin/activate; }
+function venv {
+    if [ $# -eq 0 ]; then
+        echo VIRTUAL_ENV=$VIRTUAL_ENV
+    else
+        source ~/venv/$1/bin/activate
+    fi
+}
 export -f venv
 
-function gpu { export CUDA_VISIBLE_DEVICES=$1; }
+function gpu {
+    if [ $# -eq 0 ]; then
+        echo CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES
+    else
+        export CUDA_VISIBLE_DEVICES=$1
+    fi
+}
 export -f gpu
 
 umask 002
