@@ -1,0 +1,4 @@
+channels:
+  - intel
+  - defaults
+changeps1: False
