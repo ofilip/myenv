@@ -99,3 +99,16 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+setopt -s histappend
+HISTCONTROL=ignoreboth
+HISTSIZE=10000
+HISTFILESIZE=20000
+
+# Forward ssh keys
+alias ssh="ssh -AY"
+
+export TERM=xterm-256color
+export EDITOR=vim
+umask 002
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1

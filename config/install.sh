@@ -181,8 +181,17 @@ install_bashrc() {
 }
 
 install_zshrc() {
-    filename="$(pwd)/dotfiles/.zshrc"
-    ln -s "$filename" ~/.zshrc
+    filename="$(pwd)/zshrc_common"
+    include_command="source $filename"
+    if grep -q -e "$include_command" ~/.zshrc; then
+        info "zshrc_common already referenced"
+    else
+        if echo "$include_command" >> ~/.zshrc; then
+            info "zshrc_common installed"
+        else
+            error "Failed to append to ~/.zshrc"
+        fi
+    fi
 }
 
 install_git() {
