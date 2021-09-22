@@ -180,13 +180,18 @@ install_bashrc() {
     fi
 }
 
+install_zshrc() {
+    filename="$(pwd)/dotfiles/.zshrc"
+    ln -s "$filename" ~/.zshrc
+}
+
 install_git() {
     get_profile profile
     source git_config/common.sh
     source git_config/$profile.sh
 }
 
-modules_all="vimrc bashrc git"
+modules_all="vimrc bashrc git zshrc"
 
 list_modules() {
     echo "Available modules are:"
