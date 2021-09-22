@@ -180,13 +180,27 @@ install_bashrc() {
     fi
 }
 
+install_zshrc() {
+    filename="$(pwd)/zshrc_common"
+    include_command="source $filename"
+    if grep -q -e "$include_command" ~/.zshrc; then
+        info "zshrc_common already referenced"
+    else
+        if echo "$include_command" >> ~/.zshrc; then
+            info "zshrc_common installed"
+        else
+            error "Failed to append to ~/.zshrc"
+        fi
+    fi
+}
+
 install_git() {
     get_profile profile
     source git_config/common.sh
     source git_config/$profile.sh
 }
 
-modules_all="vimrc bashrc git"
+modules_all="vimrc bashrc git zshrc"
 
 list_modules() {
     echo "Available modules are:"
