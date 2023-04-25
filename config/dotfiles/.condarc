@@ -1,5 +1,0 @@
-channels:
-  - conda-forge
-  - intel
-  - defaults
-changeps1: false
