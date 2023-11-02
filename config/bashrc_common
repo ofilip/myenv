@@ -4,7 +4,7 @@ HISTSIZE=10000
 HISTFILESIZE=20000
 
 # Forward ssh keys
-alias ssh="ssh -AY"
+alias ssh="ssh -A"
 
 export TERM=xterm-256color
 export EDITOR=vim
